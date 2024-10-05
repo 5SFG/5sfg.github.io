@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Military MEDEVAC Request Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #333;
+        }
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+        .form-container, .output-container {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        #medevacOutput {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            white-space: pre-wrap;
+            height: 100%;
+            min-height: 400px;
+            padding: 10px;
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .form-container, .output-container {
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+            button {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Military MEDEVAC Request Generator</h1>
+
+    <div class="flex-container">
+        <!-- Form Container -->
+        <div class="form-container">
+            <div class="field-group">
+                <label for="myCallsign">Your Callsign:</label>
+                <input type="text" id="myCallsign" placeholder="Echo-2-Niner">
+            </div>
+
+            <div class="field-group">
+                <label for="targetCallsign">Target Callsign:</label>
+                <input type="text" id="targetCallsign" placeholder="Charlie-Med">
+            </div>
+
+            <div class="field-group">
+                <label for="frequency">Frequency:</label>
+                <input type="text" id="frequency" placeholder="39.39 MHz">
+            </div>
+
+            <div class="field-group">
+                <label for="gridLocation">Line 1 - Grid Location:</label>
+                <input type="text" id="gridLocation" placeholder="Encrypted Grid Coordinates">
+            </div>
+
+            <div class="field-group">
+                <label for="precedence">Line 3 - Patient Precedence:</label>
+                <select id="precedence">
+                    <option value="A">A - Urgent</option>
+                    <option value="B">B - Urgent Surgical</option>
+                    <option value="C">C - Priority</option>
+                    <option value="D">D - Routine</option>
+                    <option value="E">E - Convenience</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label for="specialEquipment">Line 4 - Special Equipment:</label>
+                <select id="specialEquipment">
+                    <option value="A">A - None</option>
+                    <option value="B">B - Hoist</option>
+                    <option value="C">C - Extraction Equipment</option>
+                    <option value="D">D - Ventilator</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label for="patientType">Line 5 - Patient Type:</label>
+                <input type="text" id="patientType" placeholder="L (Litter) or A (Ambulatory) + number of patients">
+            </div>
+
+            <div class="field-group">
+                <label for="security">Line 6 - Security of Pickup Site:</label>
+                <select id="security">
+                    <option value="N">N - No enemy troops</option>
+                    <option value="P">P - Possible enemy troops</option>
+                    <option value="E">E - Enemy troops in area, approach with caution</option>
+                    <option value="X">X - Enemy troops in area, armed escort required</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label for="marking">Line 7 - Pickup Site Marking:</label>
+                <select id="marking">
+                    <option value="A">A - Panels</option>
+                    <option value="B">B - Pyrotechnic Signal</option>
+                    <option value="C">C - Smoke Signal</option>
+                    <option value="D">D - None</option>
+                    <option value="E">E - Other (specify)</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label for="smokeColor">Smoke Color (if applicable):</label>
+                <select id="smokeColor">
+                    <option value="Green">Green</option>
+                    <option value="Red">Red</option>
+                    <option value="Purple">Purple</option>
+                    <option value="White">White</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label for="nationality">Line 8 - Patient Nationality and Status:</label>
+                <select id="nationality">
+                    <option value="A">A - U.S. Military</option>
+                    <option value="B">B - U.S. Civilian</option>
+                    <option value="C">C - Non-U.S. Military</option>
+                    <option value="D">D - Non-U.S. Civilian</option>
+                    <option value="E">E - Enemy POW</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label for="terrain">Line 9 - Terrain Description (and NBC if applicable):</label>
+                <textarea id="terrain" placeholder="Describe terrain and add NBC details if applicable"></textarea>
+            </div>
+
+            <button onclick="generateMedevac()">Generate 9-Line MEDEVAC</button>
+        </div>
+
+        <!-- Output Container -->
+        <div class="output-container">
+            <label for="medevacOutput">Generated 9-Line MEDEVAC Request:</label>
+            <textarea id="medevacOutput" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        function generateMedevac() {
+            const myCallsign = document.getElementById("myCallsign").value || "Echo-2-Niner";
+            const targetCallsign = document.getElementById("targetCallsign").value || "Charlie-Med";
+            const frequency = document.getElementById("frequency").value || "39.39 MHz";
+            const gridLocation = document.getElementById("gridLocation").value || "Encrypted Grid Coordinates";
+            const precedence = document.getElementById("precedence").value;
+            const specialEquipment = document.getElementById("specialEquipment").value;
+            const patientType = document.getElementById("patientType").value || "L1";
+            const security = document.getElementById("security").value;
+            const marking = document.getElementById("marking").value;
+            const smokeColor = marking === "C" ? document.getElementById("smokeColor").value : "";
+            const nationality = document.getElementById("nationality").value;
+            const terrain = document.getElementById("terrain").value || "Terrain description here";
+
+            const output = `
+[YOU]: ${targetCallsign}, this is ${myCallsign}, over.
+[TARGET]: ${myCallsign}, this is ${targetCallsign}, send over.
+[YOU]: This is ${myCallsign}, request medevac, over.
+[TARGET]: Roger ${myCallsign}, send request, over.
+[YOU]: Roger, nine line as follows, break.
+[YOU]: ONE, ${gridLocation}, break.
+[YOU]: TWO, ${frequency}, ${myCallsign}, break.
+[YOU]: THREE, ${precedence}, break.
+[YOU]: FOUR, ${specialEquipment}, break.
+[YOU]: FIVE, ${patientType}, break.
+[YOU]: SIX, ${security}, break.
+[YOU]: SEVEN, ${marking}${smokeColor ? `, ${smokeColor} smoke` : ""}, break.
+[YOU]: EIGHT, ${nationality}, break.
+[YOU]: NINE, ${terrain}, over.
+            `;
+
+            document.getElementById("medevacOutput").value = output.trim();
+        }
+    </script>
+</body>
+</html>
