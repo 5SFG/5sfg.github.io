@@ -80,6 +80,26 @@
             padding: 10px;
             line-height: 1.6;
         }
+        .branding {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .branding img {
+            width: 70px;
+            height: auto;
+            margin-right: 15px;
+        }
+        .branding h2 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .branding a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
         @media (max-width: 768px) {
             .flex-container {
                 flex-direction: column;
@@ -94,10 +114,19 @@
             button {
                 font-size: 0.9em;
             }
+            .branding h2 {
+                font-size: 1.2em;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Branding Section -->
+    <div class="branding">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/5th_SFG_Beret_Flash.png" alt="5th Special Forces Group Beret Flash">
+        <h2>5th Special Forces Group - <a href="https://discord.gg/yXdSE9FrVG" target="_blank">discord.gg/yXdSE9FrVG</a></h2>
+    </div>
 
     <h1>Military MEDEVAC Request Generator</h1>
 
